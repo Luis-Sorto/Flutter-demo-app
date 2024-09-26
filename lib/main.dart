@@ -1,3 +1,4 @@
+import 'package:demo_app/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,11 +12,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Text('Bare bones'),
-        ),
-      ),
+      home: SplashPage(),
     );
   }
 }
