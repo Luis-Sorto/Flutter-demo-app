@@ -32,7 +32,6 @@ class AppApi {
 
       if (response.statusCode == 200) {
         List<dynamic> data = response.data;
-        // TODO add model to parse the response
 
         return data;
       } else {
