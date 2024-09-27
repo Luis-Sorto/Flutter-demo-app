@@ -134,7 +134,6 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
             child: LottieAnimationWidget(
               animation: LottieAnimation.splashAnimation,
               animationController: _lottieController,
-              repeat: true,
             ),
           ),
         ],

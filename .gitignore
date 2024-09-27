@@ -42,3 +42,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Apple
+macos/Podfile.lock
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+ios/Podfile.lock
