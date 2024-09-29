@@ -6,12 +6,15 @@ part 'person.g.dart';
 class Person {
   final int? id;
   final String? name;
+  @JsonKey(name: 'last_name')
   final String? lastName;
   final String? birthday;
   final String? gender;
   final String? state;
   final String? zip;
+  @JsonKey(name: 'photo_url')
   final String? photoUrl;
+  @JsonKey(name: 'title_profession')
   final String? titleProfession;
   final String? quote;
 

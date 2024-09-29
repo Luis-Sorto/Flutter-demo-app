@@ -1,5 +1,9 @@
 import 'dart:io' show Platform;
 import 'package:demo_app/assets/animations/animations_enum.dart';
+import 'package:demo_app/navigation/utils.dart';
+import 'package:demo_app/pages/home_page.dart';
+import 'package:demo_app/repository/person_repository.dart';
+import 'package:demo_app/services/app_api.dart';
 import 'package:demo_app/widgets/lottie_animation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,6 +22,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   late Animation<BorderRadius?> _borderRadiusAnimation;
   late Animation<Color?> _colorAnimation;
 
+  final appApi = AppApi();
   final isMobile = Platform.isIOS || Platform.isAndroid;
 
   @override
@@ -31,12 +36,9 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
     _lottieController.forward().whenComplete(
           () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (_) => const Scaffold(
-                body: Center(
-                  child: Text('Bare bones'),
-                ),
-              ),
+            NoAnimationRoute(
+              builder: (_) =>
+                  HomePage(personRepository: PersonRepository(appApi: appApi)),
             ),
           ),
         );
