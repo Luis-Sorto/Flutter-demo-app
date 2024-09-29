@@ -1,7 +1,21 @@
+import 'dart:io';
+
 import 'package:demo_app/pages/splash_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:window_size/window_size.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+
+  if (Platform.isMacOS) {
+    setWindowMinSize(const Size(500, 600));
+  }
+
   runApp(const MainApp());
 }
 
