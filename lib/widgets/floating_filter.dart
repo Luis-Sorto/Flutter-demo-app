@@ -1,18 +1,30 @@
+import 'package:demo_app/providers/person_repository.dart';
+import 'package:demo_app/widgets/state_filter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FloatingFilter extends StatefulWidget {
+class FloatingFilter extends ConsumerStatefulWidget {
   const FloatingFilter({super.key, required this.isVisible});
 
   final bool isVisible;
-  static const heightOffset = 65.0;
+  static const heightOffset = 125.0;
 
   @override
-  State<FloatingFilter> createState() => _FloatingFilterState();
+  ConsumerState createState() => _FloatingFilterState();
 }
 
-class _FloatingFilterState extends State<FloatingFilter> {
+class _FloatingFilterState extends ConsumerState<FloatingFilter> {
   @override
   Widget build(BuildContext context) {
+    final peopleAsync = ref.watch(peopleProvider);
+
+    final List<String> uniqueStates = peopleAsync.when(
+      data: (people) =>
+          people.map((p) => p.state).whereType<String>().toSet().toList(),
+      loading: () => [],
+      error: (_, __) => [],
+    )..sort();
+
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInOut,
@@ -22,20 +34,19 @@ class _FloatingFilterState extends State<FloatingFilter> {
       child: Container(
         padding: const EdgeInsets.only(left: 6),
         margin: const EdgeInsets.symmetric(horizontal: 3),
+        height: 120,
         decoration: BoxDecoration(
-          boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 2)],
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.grey,
+              blurRadius: 2,
+            )
+          ],
           borderRadius: BorderRadius.circular(6),
           color: Colors.white,
         ),
-        height: 60,
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // TODO add filter feature
-            Expanded(
-              child: Text('Filter Widget'),
-            ),
-          ],
+        child: StateFilter(
+          states: uniqueStates,
         ),
       ),
     );

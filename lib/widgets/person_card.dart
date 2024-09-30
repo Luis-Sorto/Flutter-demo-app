@@ -178,7 +178,7 @@ class _CardEntry extends StatelessWidget {
                   ),
                 ),
               SizedBox(
-                width: 180,
+                width: 155,
                 child: Text(
                   text,
                   style: fontSyle,
