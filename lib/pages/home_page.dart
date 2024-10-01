@@ -53,26 +53,31 @@ class _HomeScreenState extends ConsumerState<HomePage> {
     return SizedBox(
       child: SafeArea(
         child: Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Stack(
-              children: [
-                FloatingFilter(isVisible: _isVisible),
-                AnimatedPadding(
-                  duration: const Duration(milliseconds: 250),
-                  padding: EdgeInsets.only(
-                    top: !_isVisible ? 0 : FloatingFilter.heightOffset,
+          body: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Stack(
+                children: [
+                  FloatingFilter(isVisible: _isVisible),
+                  AnimatedPadding(
+                    duration: const Duration(milliseconds: 250),
+                    padding: EdgeInsets.only(
+                      top: !_isVisible ? 0 : FloatingFilter.heightOffset,
+                    ),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      controller: _scrollController,
+                      itemCount: filteredPeople.length,
+                      itemBuilder: (_, index) =>
+                          PersonCard(person: filteredPeople[index]),
+                    ),
                   ),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    controller: _scrollController,
-                    itemCount: filteredPeople.length,
-                    itemBuilder: (_, index) =>
-                        PersonCard(person: filteredPeople[index]),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

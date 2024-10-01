@@ -127,10 +127,8 @@ class _CardEntry extends StatelessWidget {
     final isDefault = !(entryType == CardEntryEnum.name || isQuote);
 
     final text = '${entryType.label}'
-    '${isDefault ? ": " : ''}'
-    '${isQuote ? '"$value"' : isDate
-        ? DateFormatter.monthDateYear.format(DateTime.parse(value!))
-        : value}';
+        '${isDefault ? ": " : ''}'
+        '${isQuote ? '"$value"' : isDate ? DateFormatter.monthDateYear.format(DateTime.parse(value!)) : value}';
 
     final fontSyle = switch (entryType) {
       CardEntryEnum.name => const TextStyle(
