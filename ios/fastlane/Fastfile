@@ -1,0 +1,40 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Runs flutter tests"
+  lane :run_tests do
+    sh("flutter test")
+  end
+
+  desc "Push build to TestFlight"
+  lane :testflight_deploy do
+    increment_build_number(bump_type: "patch")
+    build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
+    upload_to_testflight
+    slack(message: 'TestFligt build updated')
+  end
+
+  desc "Push new build to AppStore"
+  lane :appstore_deploy do
+    increment_build_number(bump_type: "major")
+    capture_screenshots
+    build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
+    upload_to_app_store
+    slack(message: 'AppStore build updated')
+  end
+end
