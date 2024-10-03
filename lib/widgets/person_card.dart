@@ -28,6 +28,17 @@ class PersonCard extends StatelessWidget {
               child: Image.network(
                 '${person.photoUrl}',
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(6)),
+                    child: const Icon(
+                      Icons.person_rounded,
+                      size: 60,
+                    ),
+                  );
+                },
               ),
             ),
             SizedBox(
@@ -127,8 +138,10 @@ class _CardEntry extends StatelessWidget {
     final isDefault = !(entryType == CardEntryEnum.name || isQuote);
 
     final text = '${entryType.label}'
-        '${isDefault ? ": " : ''}'
-        '${isQuote ? '"$value"' : isDate ? DateFormatter.monthDateYear.format(DateTime.parse(value!)) : value}';
+    '${isDefault ? ": " : ''}'
+    '${isQuote ? '"$value"' : isDate
+        ? DateFormatter.monthDateYear.format(DateTime.parse(value!))
+        : value}';
 
     final fontSyle = switch (entryType) {
       CardEntryEnum.name => const TextStyle(

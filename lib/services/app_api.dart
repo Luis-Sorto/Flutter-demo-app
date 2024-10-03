@@ -16,9 +16,7 @@ class AppApi {
               connectTimeout: const Duration(seconds: 5),
               receiveTimeout: const Duration(seconds: 3),
             )) {
-    _dio.interceptors.add(
-      RetryUtil.retryInterceptor(dio: _dio),
-    );
+    _dio.interceptors.add(RetryUtil.retryInterceptor(dio: _dio));
   }
 
   /// Requests people data
