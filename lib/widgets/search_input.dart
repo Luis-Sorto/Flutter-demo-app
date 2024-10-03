@@ -14,6 +14,8 @@ class SearchInput extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final controller = useTextEditingController();
+    final hideDelete = useState(true);
+
     return Padding(
       padding: const EdgeInsets.all(6),
       child: TextField(
@@ -22,17 +24,21 @@ class SearchInput extends HookWidget {
             labelText: placeholder,
             prefixIcon: const Icon(Icons.search),
             border: const OutlineInputBorder(),
-            suffixIcon: controller.text.isEmpty
+            suffixIcon: hideDelete.value
                 ? null
                 : IconButton(
                     icon: const Icon(Icons.close),
                     onPressed: () {
+                      hideDelete.value = true;
                       controller.clear();
                       onChanged('');
                     },
                   )),
         style: const TextStyle(fontSize: 16, height: 0.8),
-        onChanged: onChanged,
+        onChanged: (value) {
+          hideDelete.value = value.isEmpty;
+          onChanged(value);
+        },
       ),
     );
   }

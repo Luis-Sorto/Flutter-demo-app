@@ -18,6 +18,8 @@ dependencies:
   intl: ^0.19.0
   json_annotation: ^4.9.0
   lottie: ^3.1.2
+  mockito: ^5.4.4
+  network_image_mock: ^2.1.1
   window_size:
     git:
       url: https://github.com/google/flutter-desktop-embedding.git
@@ -29,6 +31,9 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   build_runner: ^2.4.11
   json_serializable: ^6.8.0
+  test: ^1.25.2
+  integration_test:
+    sdk: flutter
 
 flutter:
   uses-material-design: true

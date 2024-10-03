@@ -44,7 +44,7 @@ class PersonCard extends StatelessWidget {
             SizedBox(
               width: 150,
               child: Text(
-                '${person.titleProfession}',
+                person.titleProfession ?? '',
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.grey[700],
@@ -65,7 +65,7 @@ class PersonCard extends StatelessWidget {
         children: [
           _CardEntry(
             entryType: CardEntryEnum.name,
-            value: '${person.name} ${person.lastName}',
+            value: '${person.name??'N/A'} ${person.lastName??''}',
             showDivider: false,
             margin: const EdgeInsets.only(bottom: 20),
           ),
@@ -120,7 +120,7 @@ enum CardEntryEnum {
 
 class _CardEntry extends StatelessWidget {
   const _CardEntry({
-    this.value = 'N/A',
+    this.value,
     required this.entryType,
     this.showDivider = true,
     this.margin = const EdgeInsets.only(bottom: 12),
@@ -137,11 +137,13 @@ class _CardEntry extends StatelessWidget {
     final isQuote = entryType == CardEntryEnum.quote;
     final isDefault = !(entryType == CardEntryEnum.name || isQuote);
 
+    final displayValue = value?? 'N/A';
+
     final text = '${entryType.label}'
     '${isDefault ? ": " : ''}'
-    '${isQuote ? '"$value"' : isDate
+    '${isQuote ? '"$displayValue"' : (isDate && value!=null)
         ? DateFormatter.monthDateYear.format(DateTime.parse(value!))
-        : value}';
+        : displayValue}';
 
     final fontSyle = switch (entryType) {
       CardEntryEnum.name => const TextStyle(
