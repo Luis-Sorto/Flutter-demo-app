@@ -10,8 +10,6 @@ class PersonRepository {
   /// Handles the data retrival
   Future<List<Person>> getPeople() async {
     try {
-      // TODO Implement caching mechanism to ensure best performance
-
       final response = await appApi.fetchPeople();
 
       List<Person> people =

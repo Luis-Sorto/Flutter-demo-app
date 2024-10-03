@@ -1,4 +1,4 @@
-import 'package:demo_app/providers/person_repository.dart';
+import 'package:demo_app/providers/filtered_people_provider.dart';
 import 'package:demo_app/widgets/state_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,14 +16,7 @@ class FloatingFilter extends ConsumerStatefulWidget {
 class _FloatingFilterState extends ConsumerState<FloatingFilter> {
   @override
   Widget build(BuildContext context) {
-    final peopleAsync = ref.watch(peopleProvider);
-
-    final List<String> uniqueStates = peopleAsync.when(
-      data: (people) =>
-          people.map((p) => p.state).whereType<String>().toSet().toList(),
-      loading: () => [],
-      error: (_, __) => [],
-    )..sort();
+    final uniqueStates = ref.watch(uniqueStatesProvider);
 
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 250),
