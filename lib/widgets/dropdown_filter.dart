@@ -27,7 +27,6 @@ class DropdownMenuFilter extends HookConsumerWidget {
         height: 45,
         child: OutlinedButton(
           style: ButtonStyle(
-            // backgroundColor: WidgetStateProperty.all(Colors.grey),
             shape: WidgetStatePropertyAll(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(6),

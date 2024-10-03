@@ -75,12 +75,15 @@ class _HomeScreenState extends ConsumerState<HomePage> {
                             top: !_isVisible ? 0 : FloatingFilter.heightOffset,
                           ),
                           child: ListView.builder(
+                            key: const ValueKey('personList'),
                             shrinkWrap: true,
                             physics: const ClampingScrollPhysics(),
                             controller: _scrollController,
                             itemCount: filteredPeople.length,
-                            itemBuilder: (_, index) =>
-                                PersonCard(person: filteredPeople[index]),
+                            itemBuilder: (_, index) => PersonCard(
+                              key: ValueKey('personCard$index'),
+                              person: filteredPeople[index],
+                            ),
                           ),
                         ),
                       ],
