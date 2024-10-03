@@ -4,11 +4,11 @@ An app to show  search among people
 
 You can download it on the following links
 
-iOS
+**iOS**
 
-- [Download Payload.ipa](https://github.com/your-username/your-repository/raw/main/downloads/Payload.ipa)
+- [Download Payload.ipa](https://raw.githubusercontent.com/Luis-Sorto/Flutter-demo-app/main/Payload.ipa)
 
 
-android
+**android**
 
-- [Download app-release.apk](https://github.com/your-username/your-repository/raw/main/downloads/app-release.apk)
+- [Download app-release.apk](https://raw.githubusercontent.com/Luis-Sorto/Flutter-demo-app/main/app-release.apk)
