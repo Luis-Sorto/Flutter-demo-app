@@ -1,3 +1,11 @@
-# demo_app
+# Search App
 
-A new Flutter project.
+An app to show  search among people
+
+You can download it on the following links
+
+iOS
+
+android
+
+
