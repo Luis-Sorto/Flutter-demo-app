@@ -11,7 +11,8 @@ You can download it on the following links
 
 
 **iOS**
-This link might work but it's very hard to by pass iOS security to distribute the app
-link will work until 06/10/2024
+This link might work but it's very hard to bypass iOS security to distribute the app
+without a developper account, certificates & provisioning profileslink 
+will work until 06/10/2024 but might failed to install, also won't have latest updates
 - [Direct download](https://ioair.link/u83vhr)
 
