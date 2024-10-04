@@ -25,14 +25,7 @@ class DropdownMenuFilter extends HookConsumerWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 6),
         height: 45,
-        child: OutlinedButton(
-          style: ButtonStyle(
-            shape: WidgetStatePropertyAll(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-              ),
-            ),
-          ),
+        child: ElevatedButton(
           onPressed: () async {
             await showDialog(
               barrierDismissible: true,

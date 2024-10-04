@@ -10,14 +10,6 @@ class ClearButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(right: 3),
       child: IconButton(
-        style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all(Colors.grey),
-          shape: WidgetStatePropertyAll(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-            ),
-          ),
-        ),
         icon: const Icon(
           Icons.delete,
           color: Colors.white,

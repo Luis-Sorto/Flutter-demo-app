@@ -43,50 +43,47 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
           ),
         );
 
-    if (isMobile) {
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    } else {
-      // Animation setups for Desktop
-      _controller = AnimationController(
-        duration: const Duration(milliseconds: 400),
-        vsync: this,
-      );
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    // Animation setups for Desktop
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 400),
+      vsync: this,
+    );
 
-      _sizeAnimation = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(
-          parent: _controller,
-          reverseCurve: Curves.easeIn,
-          curve: Curves.easeInOut,
-        ),
-      );
+    _sizeAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _controller,
+        reverseCurve: Curves.easeIn,
+        curve: Curves.easeInOut,
+      ),
+    );
 
-      _borderRadiusAnimation = BorderRadiusTween(
-        begin: BorderRadius.circular(50.0),
-        end: BorderRadius.circular(0.0),
-      ).animate(
-        CurvedAnimation(
-          parent: _controller,
-          curve: Curves.linear,
-        ),
-      );
+    _borderRadiusAnimation = BorderRadiusTween(
+      begin: BorderRadius.circular(50.0),
+      end: BorderRadius.circular(0.0),
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.linear,
+      ),
+    );
 
-      _colorAnimation = ColorTween(
-        begin: Colors.white,
-        end: const Color(0xFFFFF45A),
-      ).animate(
-        CurvedAnimation(
-          parent: _controller,
-          reverseCurve: Curves.easeIn,
-          curve: Curves.easeOut,
-        ),
-      );
+    _colorAnimation = ColorTween(
+      begin: Colors.white,
+      end: const Color(0xFFFFF45A),
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        reverseCurve: Curves.easeIn,
+        curve: Curves.easeOut,
+      ),
+    );
 
-      _controller.forward().whenComplete(() {
-        // Wait for the Lottie animation to complete
-        Future.delayed(const Duration(seconds: 2, milliseconds: 200),
-            () => _controller.reverse());
-      });
-    }
+    _controller.forward().whenComplete(() {
+      // Wait for the Lottie animation to complete
+      Future.delayed(const Duration(seconds: 2, milliseconds: 200),
+          () => _controller.reverse());
+    });
   }
 
   @override
@@ -130,7 +127,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     return Scaffold(
       body: Stack(
         children: [
-          if (!isMobile) buildBackgroundAnimation(),
+          buildBackgroundAnimation(),
           SizedBox(
             width: double.infinity,
             child: LottieAnimationWidget(

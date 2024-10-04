@@ -19,11 +19,6 @@ class FilterTypeToggle extends ConsumerWidget {
               .read(filterSelectionProvider.notifier)
               .update((state) => state.map((selection) => !selection).toList());
         },
-        borderRadius: const BorderRadius.all(Radius.circular(6)),
-        constraints: const BoxConstraints(
-          minHeight: 40.0,
-          minWidth: 40.0,
-        ),
         isSelected: filterSelection,
         children: filterOptions,
       ),

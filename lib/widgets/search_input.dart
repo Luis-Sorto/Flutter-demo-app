@@ -19,11 +19,11 @@ class SearchInput extends HookWidget {
     return Padding(
       padding: const EdgeInsets.all(6),
       child: TextField(
+        autofocus: false,
         controller: controller,
         decoration: InputDecoration(
             labelText: placeholder,
             prefixIcon: const Icon(Icons.search),
-            border: const OutlineInputBorder(),
             suffixIcon: hideDelete.value
                 ? null
                 : IconButton(
@@ -34,7 +34,6 @@ class SearchInput extends HookWidget {
                       onChanged('');
                     },
                   )),
-        style: const TextStyle(fontSize: 16, height: 0.8),
         onChanged: (value) {
           hideDelete.value = value.isEmpty;
           onChanged(value);
