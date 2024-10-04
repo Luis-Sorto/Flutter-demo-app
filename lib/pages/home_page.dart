@@ -19,6 +19,7 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomePage> {
   final ScrollController _scrollController = ScrollController();
   bool _isVisible = true;
+  bool showScrollUp = false;
   double _lastOffset = 0;
 
   @override
@@ -35,6 +36,16 @@ class _HomeScreenState extends ConsumerState<HomePage> {
   }
 
   void _scrollListener() {
+    if (_scrollController.offset > 100 && !showScrollUp) {
+      setState(() {
+        showScrollUp = true;
+      });
+    } else if (_scrollController.offset < 100 && showScrollUp) {
+      setState(() {
+        showScrollUp = false;
+      });
+    }
+
     double currentOffset = _scrollController.offset;
     if (currentOffset > _lastOffset && _isVisible) {
       setState(() {
@@ -58,6 +69,14 @@ class _HomeScreenState extends ConsumerState<HomePage> {
     return SizedBox(
       child: SafeArea(
         child: Scaffold(
+          floatingActionButton: showScrollUp
+              ? FloatingActionButton(
+                  onPressed: () {
+                    _scrollController.jumpTo(0);
+                  },
+                  child: const Icon(Icons.arrow_circle_up_rounded),
+                )
+              : null,
           body: GestureDetector(
             onTap: () {
               FocusScope.of(context).unfocus();

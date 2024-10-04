@@ -12,6 +12,16 @@ class ChipListFilter extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final filter = ref.watch(filterProvider);
     final filterNotifier = ref.read(filterProvider.notifier);
+    final selectedStates = ref.watch(filterProvider).selectedStates;
+
+    states.sort((a, b) {
+      bool isASelected = selectedStates.contains(a);
+      bool isBSelected = selectedStates.contains(b);
+
+      if (isASelected && !isBSelected) return -1;
+      if (!isASelected && isBSelected) return 1;
+      return a.compareTo(b);
+    });
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -27,14 +37,24 @@ class ChipListFilter extends ConsumerWidget {
               itemBuilder: (_, index) {
                 final isSelected =
                     filter.selectedStates.contains(states[index]);
+
                 return Container(
                   margin: const EdgeInsets.symmetric(horizontal: 3),
                   child: FilterChip(
+                    showCheckmark: false,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    avatar: isSelected
+                        ? const Icon(
+                            Icons.check,
+                            size: 20,
+                          )
+                        : null,
                     labelPadding: const EdgeInsets.symmetric(
                       horizontal: 6,
                       vertical: 3,
                     ),
-                    padding: EdgeInsets.zero,
                     label: Text(states[index]),
                     selected: isSelected,
                     onSelected: (_) {
