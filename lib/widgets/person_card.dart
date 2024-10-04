@@ -1,4 +1,5 @@
 import 'package:demo_app/models/person.dart';
+import 'package:demo_app/theme/app_theme.dart';
 import 'package:demo_app/utils/date_formatter.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +66,7 @@ class PersonCard extends StatelessWidget {
         children: [
           _CardEntry(
             entryType: CardEntryEnum.name,
-            value: '${person.name??'N/A'} ${person.lastName??''}',
+            value: '${person.name ?? 'N/A'} ${person.lastName ?? ''}',
             showDivider: false,
             margin: const EdgeInsets.only(bottom: 20),
           ),
@@ -98,7 +99,7 @@ class PersonCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           photoSectionBuilder(),
-          descriptionItemsBuilder(),
+          Flexible(child: descriptionItemsBuilder())
         ],
       ),
     );
@@ -134,43 +135,24 @@ class _CardEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDate = entryType == CardEntryEnum.birthday;
+    final isName = entryType == CardEntryEnum.name;
     final isQuote = entryType == CardEntryEnum.quote;
-    final isDefault = !(entryType == CardEntryEnum.name || isQuote);
+    final isDefault = !(isName || isQuote);
 
-    final displayValue = value?? 'N/A';
+    final displayValue = value ?? 'N/A';
+
+    final theme = Theme.of(context);
 
     final text = '${entryType.label}'
-    '${isDefault ? ": " : ''}'
-    '${isQuote ? '"$displayValue"' : (isDate && value!=null)
-        ? DateFormatter.monthDateYear.format(DateTime.parse(value!))
-        : displayValue}';
+        '${isDefault ? ": " : ''}'
+        '${isQuote ? '"$displayValue"' : (isDate && value != null) ? DateFormatter.monthDateYear.format(DateTime.parse(value!)) : displayValue}';
 
     final fontSyle = switch (entryType) {
-      CardEntryEnum.name => const TextStyle(
-          fontSize: 20.0,
-          fontWeight: FontWeight.bold,
-          height: 1,
-        ),
-      CardEntryEnum.quote => TextStyle(
-          fontStyle: FontStyle.italic,
-          color: Colors.blueGrey[700],
-          height: 1,
-        ),
-      CardEntryEnum.birthday => TextStyle(
-          fontSize: 14.0,
-          color: Colors.grey[600],
-          height: 1,
-        ),
-      CardEntryEnum.state => TextStyle(
-          fontSize: 14.0,
-          color: Colors.grey[600],
-          height: 1,
-        ),
-      CardEntryEnum.zipCode => TextStyle(
-          fontSize: 14.0,
-          color: Colors.grey[600],
-          height: 1,
-        ),
+      CardEntryEnum.name => theme.textTheme.labelLarge,
+      CardEntryEnum.quote => theme.textTheme.labelSmall,
+      CardEntryEnum.birthday => theme.textTheme.labelMedium,
+      CardEntryEnum.state => theme.textTheme.labelMedium,
+      CardEntryEnum.zipCode => theme.textTheme.labelMedium,
     };
 
     return Container(
@@ -187,17 +169,22 @@ class _CardEntry extends StatelessWidget {
                   child: Icon(
                     entryType.icon,
                     size: 16.0,
-                    color: Colors.grey[600],
                   ),
                 ),
-              SizedBox(
-                width: 155,
-                child: Text(
-                  text,
-                  style: fontSyle,
-                  softWrap: true,
-                  overflow: TextOverflow.visible,
-                  textAlign: isQuote ? TextAlign.center : null,
+              Flexible(
+                child: Align(
+                  alignment: isQuote ? Alignment.center : Alignment.topLeft,
+                  child: Tooltip(
+                    message: text,
+                    child: Text(
+                      text,
+                      style: fontSyle,
+                      softWrap: !isName,
+                      textAlign: isQuote ? TextAlign.center : null,
+                      maxLines: isQuote ? 2 : 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -217,12 +204,11 @@ class _CardEntryDivider extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(2),
-        color: Colors.grey[600],
+        color: AppTheme.secondaryColor,
       ),
       clipBehavior: Clip.antiAlias,
       margin: const EdgeInsets.only(top: 6),
       height: 1.5,
-      width: 180,
     );
   }
 }

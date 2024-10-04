@@ -1,4 +1,5 @@
 import 'package:demo_app/providers/filter_provider.dart';
+import 'package:demo_app/theme/app_theme.dart';
 import 'package:demo_app/widgets/clear_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,21 +42,17 @@ class ChipListFilter extends ConsumerWidget {
                 return Container(
                   margin: const EdgeInsets.symmetric(horizontal: 3),
                   child: FilterChip(
-                    showCheckmark: false,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6),
-                    ),
                     avatar: isSelected
                         ? const Icon(
                             Icons.check,
+                            color: Colors.white,
                             size: 20,
                           )
                         : null,
-                    labelPadding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 3,
-                    ),
                     label: Text(states[index]),
+                    labelStyle: TextStyle(
+                      color: isSelected ? null : AppTheme.secondaryColor,
+                    ),
                     selected: isSelected,
                     onSelected: (_) {
                       FocusScope.of(context).unfocus();
