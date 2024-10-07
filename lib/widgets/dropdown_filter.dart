@@ -67,7 +67,7 @@ class DropdownMenuFilter extends HookConsumerWidget {
                                   ),
                                 ),
                                 ClearButton(
-                                  onPressed: filterNotifier.clearAllFilters,
+                                  onPressed: filterNotifier.clearSelections,
                                 ),
                               ]),
                               Expanded(

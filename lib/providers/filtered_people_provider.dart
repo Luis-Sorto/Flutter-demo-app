@@ -8,13 +8,15 @@ final filteredPeopleProvider = Provider<List<Person>>((ref) {
   final filter = ref.watch(filterProvider);
 
   return people.where((person) {
-    final matchesSearch =
-        person.name?.toLowerCase().contains(filter.searchText.toLowerCase());
+    final matchesName = "${person.name ?? ''} ${person.lastName ?? ''}"
+        .toLowerCase()
+        .contains(filter.searchText.toLowerCase().trim());
+
     final matchesState = filter.selectedStates.isEmpty ||
         filter.selectedStates.contains(person.state);
 
-    if (matchesSearch == null) return false;
-    return matchesSearch && matchesState;
+    if (!matchesName) return false;
+    return matchesState;
   }).toList();
 });
 

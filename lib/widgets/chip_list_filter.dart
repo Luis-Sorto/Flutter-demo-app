@@ -27,7 +27,7 @@ class ChipListFilter extends ConsumerWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ClearButton(onPressed: filterNotifier.clearAllFilters),
+        ClearButton(onPressed: filterNotifier.clearSelections),
         Expanded(
           child: SizedBox(
             height: 45,
